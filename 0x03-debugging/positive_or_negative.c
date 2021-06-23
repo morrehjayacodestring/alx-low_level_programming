@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
+#include "holberton.h"
 /**
  * main - main block
  * Description: Get a random number and print the number
@@ -8,9 +9,7 @@
  * Return: 0
  */
 void positive_or_negative(int i)
-{
-
-srand(time(0));
+{rand(time(0));
 i = rand() - RAND_MAX / 2;
 
 if (i > 0)
