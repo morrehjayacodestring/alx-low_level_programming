@@ -2,9 +2,7 @@
  * File: 2-args.c
  * Auth: Morris Mutisya Sammy 
  */
-
 #include <stdio.h>
-
 /**
  * main - Prints all arguments it receives.
  * @argc: The number of arguments supplied to the program.
