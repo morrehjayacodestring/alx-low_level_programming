@@ -1,8 +1,5 @@
-/*
- * File: 2-args.c
- * Auth: Morris Mutisya Sammy 
- */
 #include <stdio.h>
+#include "holberton.h"
 /**
  * main - Prints all arguments it receives.
  * @argc: The number of arguments supplied to the program.
