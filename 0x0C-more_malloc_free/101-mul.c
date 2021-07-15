@@ -37,7 +37,7 @@ for (i = firstNum; s[i] >= 48 && s[i] <= 57; i++)
 resp *= 10;
 resp += (s[i] - 48);
 }
-return (sign * resp);
+return (sign *resp);
 }
 
 /**
@@ -74,7 +74,7 @@ if (argc != 3)
 _puts("Error ");
 exit(98);
 }
-print_int(_atoi(argv[1]) * _atoi(argv[2]));
+print_int(_atoi(argv[1]) *_atoi(argv[2]));
 _putchar('\n');
 return (0);
 }
