@@ -1,35 +1,49 @@
 #include "holberton.h"
-#include <stdlib.h>
 #include <stdio.h>
+
 /**
- **string_nconcat - a function that concatenates two strings.
- *@s1 : pointer to string
- *@s2 : pointer to string
- *@n : integer
- *Return: pointer to string
+ * string_nconcat - concatenate 2 strings, only n bytes of s2
+ * @s1: string 1
+ * @s2: string 2
+ * @n: bytes to include of s2
+ * Return: NULL if fail, else pointer to malloc memory
  */
+
 char *string_nconcat(char *s1, char *s2, unsigned int n)
 {
-unsigned int x1, x2, i, j;
-char *s;
+char *p;
+int strlen1, i, c;
 
 if (s1 == NULL)
 s1 = "";
 if (s2 == NULL)
 s2 = "";
-for (x1 = 0; s1[x1] != '\0'; x1++)
-;
-for (x2 = 0; s2[x2] != '\0'; x2++)
-;
-if (n >= x2)
-n = x2;
-s = malloc(sizeof(char) * (x1 + n + 1));
-if (s == NULL)
+strlen1 = (unsigned int)_strlen(s1);
+p = malloc((strlen1 + n + 1) * sizeof(char));
+if (p == NULL)
 return (NULL);
-for (i = 0; s1[i] != '\0'; i++)
-s[i] = s1[i];
-for (j = x1; j < x1 + n; j++)
-s[j] = s2[j - x1];
-s[j] = '\0';
-return (s);
+for (i = 0, c = 0; i < (strlen1 + n); i++)
+{
+if (i < strlen1)
+p[i] = s1[i];
+else
+p[i] = s2[c++];
+}
+p[i] = '\0';
+return (p);
+}
+
+/**
+ * _strlen - find length of string
+ * @s: string
+ * Return: length of string
+ */
+
+int _strlen(char *s)
+{
+int i;
+
+for (i = 0; s[i] != '\0'; i++)
+;
+return (i);
 }
