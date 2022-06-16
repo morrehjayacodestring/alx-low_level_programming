@@ -1,109 +1,70 @@
+#include <stdio.h>
+#include <stdlib.h>
 #include "search_algos.h"
 
 /**
- * min - function that returns the minimum of 2 integers
- * @s: int that represents step value
- * @n: int that represents size of array
- * Return: minimum value as int
+ * binary_search2 - searches for value in a sorted array of integers using the
+ *                 Binary Search Algorithm
+ * @array: pointer to the first element of the array to search in
+ * @value: value to search for
+ * @low: lower boundary of array subset to search in
+ * @high: upper boundary of array subset to search in
+ *
+ * Return: index where value is located, or -1
  */
-
-int min(int s, int n)
+int binary_search2(int *array, int value, size_t low, size_t high)
 {
-  return ((s <= n) ? s : n);
+	size_t left = low, right = high, idx = 0;
+	int mid = 0;
+
+	if (array == NULL)
+		return (-1);
+
+	while (left <= right)
+	{
+		printf("Searching in array: ");
+		for (idx = left; idx <= right; idx++)
+		{
+			printf("%d", array[idx]);
+			if (idx != right)
+				printf(", ");
+			else
+				printf("\n");
+		}
+		mid = (left + right) / 2;
+		if (array[mid] < value)
+			left = mid + 1;
+		else if (array[mid] > value)
+			right = mid - 1;
+		else
+			return (mid);
+	}
+	return (-1);
 }
 
+
 /**
- * printer - function that prints current sub array that's being examined
- * @array: Original int array
- * @l: int for starting index value of sub-array
- * @r: int for ending index of sub-array
- * Return: Void
+ * exponential_search - searches for a value in a sorted array of integers
+ *                      using the Exponential Search Algorithm
+ * @array: pointer to the first element of the array to search in
+ * @size: number of elements in the array
+ * @value: value to search for
+ *
+ * Return: first index where value is located, or -1 if not found or
+ *         array is NULL
  */
-
-void printer(int *array, int l, int r)
+int exponential_search(int *array, size_t size, int value)
 {
-  int i;
+	size_t exp = 1;
 
-  printf("Searching in array: ");
+	if (array == NULL)
+		return (-1);
 
-  for (i = l; i <= r; i++)
-    {
-      if (i == r)
+	while (exp < size && array[exp] < value)
 	{
-	  printf("%d\n", array[i]);
-	  return;
+		printf("Value checked array[%lu] = [%d]\n", exp, array[exp]);
+		exp *= 2;
 	}
 
-      printf("%d, ", array[i]);
-    }
-}
-
-
-/**
- * binary_search_help - helper function that searches for a value in a sorted
- * array of integers using the Binary search algorithm
- * @array: int  pointer to the first element of the array to search in
- * @start: int variable to indicate starting point of binary search
- * @end: int variable to indicate ending point of binary search
- * @value: is the value to search for
- * Return: first index where value is located, -1 if array is NULL or
- * value is not found
- */
-
-int binary_search_help(int *array, int start, int end, int value)
-{
-  int l, m, r;
-
-  if (array == NULL)
-    return (-1);
-
-  l = start;
-  r = end;
-
-  while (l <= r)
-    {
-      m = (l + r) / 2;
-
-      printer(array, l, r);
-
-      if (array[m] < value)
-	l = m + 1;
-
-      else if (array[m] > value)
-	r = m - 1;
-
-      else if (array[m] == value)
-	return (m);
-    }
-
-  return (-1);
-}
-
-/**
- * exponential_search - function that searches for a value in a sorted array of
- * integers using the Exponential search algorithm
- * @array: int pointer to the first element of the array to search in
- * @size: size_t variable for number of elements in array
- * @value: int to search for in array
- * Return: first index where value is located, -1 otherwise
- */
-int exponential_search(int array[], size_t size, int value)
-{
-  int bound = 1, lower, upper;
-
-  if (size == 0)
-    return (-1);
-
-  while (bound < (int) size && array[bound] < value)
-    {
-      printf("Value checked array[%d] = [%d]\n", bound, array[bound]);
-      bound *= 2;
-    }
-
-  lower = bound / 2;
-  upper =  min(bound, ((int) size) - 1);
-
-  printf("Value found between indexes [%d] and [%d]\n", lower, upper);
-
-  return (binary_search_help(array, lower, upper, value));
+	return (binary_search2(array, value, exp / 2, exp - 1));
 }
